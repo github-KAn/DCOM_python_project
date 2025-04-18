@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCOM Web Client</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+            background-color: #f8f9fa;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .welcome-message {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 rounded">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">DCOM Web Client</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Danh sách người dùng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/requests">Danh sách yêu cầu</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4>Chào mừng đến với DCOM Web Client</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                Không thể kết nối đến DCOM server. Vui lòng đảm bảo server đang chạy.
+                            </div>
+                        {% else %}
+                            <div class="welcome-message">
+                                <h5>Thông điệp từ DCOM Server:</h5>
+                                <p class="lead">{{ welcome_msg }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <h5>Chức năng có sẵn:</h5>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Quản lý người dùng</h5>
+                                        <p class="card-text">Xem danh sách và thông tin chi tiết của người dùng.</p>
+                                        <a href="/users" class="btn btn-primary">Xem người dùng</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Yêu cầu dịch vụ</h5>
+                                        <p class="card-text">Xem các yêu cầu dịch vụ hiện có từ người dùng.</p>
+                                        <a href="/requests" class="btn btn-primary">Xem yêu cầu</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Kiểm tra trạng thái</h5>
+                                        <p class="card-text">Kiểm tra trạng thái kết nối DCOM server.</p>
+                                        <a href="/api/status" class="btn btn-primary">Kiểm tra API</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-muted py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">DCOM Web Client &copy; 2024</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

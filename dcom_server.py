@@ -4,11 +4,14 @@ import sqlite3
 import win32api
 import logging
 
+from pyodbc import Date
+
 # Khởi tạo logging
 logging.basicConfig(filename="dcom_server.log", level=logging.INFO,
                     format="%(asctime)s - %(levelname)s - %(message)s")
 # tên database
 sql_db="customer_service.db"
+
 
 class DCOMServer:
     _public_methods_ = ['hello','fetch_user','add_users','fetch_all_users','fetch_request']
